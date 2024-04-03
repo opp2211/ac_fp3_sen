@@ -28,8 +28,7 @@ public class MeasurementService {
     }
 
     public List<Measurement> getAll() {
-        //todo: join fetch
-        return measurementRepository.findAll();
+        return measurementRepository.findAllWithSensors();
     }
 
     public int getRainyCount() {
