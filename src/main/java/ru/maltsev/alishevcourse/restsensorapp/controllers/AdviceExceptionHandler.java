@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.maltsev.alishevcourse.restsensorapp.dto.ErrorResponse;
+import ru.maltsev.alishevcourse.restsensorapp.exceptions.NotFoundException;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,16 @@ public class AdviceExceptionHandler {
                 .message(e.getMessage())
                 .dateTime(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler
+    private ErrorResponse handleNotFound(NotFoundException e) {
+        return ErrorResponse.builder()
+                .message(e.getMessage())
+                .dateTime(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
                 .build();
     }
 }
