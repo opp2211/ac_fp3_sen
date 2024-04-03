@@ -9,6 +9,8 @@ import ru.maltsev.alishevcourse.restsensorapp.model.Sensor;
 import ru.maltsev.alishevcourse.restsensorapp.repositories.MeasurementRepository;
 import ru.maltsev.alishevcourse.restsensorapp.repositories.SensorRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -23,5 +25,18 @@ public class MeasurementService {
         measurement.setSensor(sensor);
 
         measurementRepository.save(measurement);
+    }
+
+    public List<Measurement> getAll() {
+        //todo: join fetch
+        return measurementRepository.findAll();
+    }
+
+    public int getRainyCount() {
+        return measurementRepository.countByRaining(true);
+    }
+
+    public int getRainyDaysCount() {
+        return measurementRepository.countDaysByRaining(true);
     }
 }
